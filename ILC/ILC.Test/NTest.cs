@@ -146,7 +146,7 @@ namespace ILC.Test
                         {
                             N first = new N(i.ToString());
                             N second = new N(j.ToString());
-                            Assert.AreEqual((i - j * k).ToString(), N.subMul(first, second, k).ToString(), $"¬ходные данные i = {i}, j = {j}, k = {k}");
+                            Assert.AreEqual((i - j * k).ToString(), N.SubMul(first, second, k).ToString(), $"¬ходные данные i = {i}, j = {j}, k = {k}");
                         }
                     }
                 }
