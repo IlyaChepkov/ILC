@@ -77,7 +77,32 @@ namespace ILC.Math
         public N MulDigit(byte digit)
         {
             N result = Clone();
+            byte add = 0;
+            for (int i = 0; i < result.value.Count; i++)
+            {
+                if (result.value[i] * digit + add >= 10)
+                {
+                    byte bufer = (byte)(result.value[i] * digit + add);
+                    result.value[i] = (byte)(bufer % 10);
+                    add = (byte)(bufer / 10);
+                }
+                else
+                {
+                    result.value[i] = (byte)(result.value[i] * digit + add);
+                }
+            }
+            if (add == 0) return result;
+            result.value.Add(add);
+            return result;
+        }
 
+        public N MulK(uint k)
+        {
+            N result = Clone();
+            for (uint i = 0; i < k; i++)
+            {
+                result.value.Insert(0, 0);
+            }
             return result;
         }
 
@@ -180,9 +205,9 @@ namespace ILC.Math
             return result;
         }
 
-       /* public static N operator *(N first, N second)
-        {
-            return;
-        } */
+        /* public static N operator *(N first, N second)
+         {
+             return;
+         } */
     }
 }
