@@ -4,19 +4,16 @@ namespace ILC.Math
 {
     public class N
     {
-        List<byte> value;
+        private List<byte> value;
 
         public N(string input)
         {
             if (input.Any(t => !char.IsDigit(t)))
                 throw new ArgumentException("не число");
             value = new List<byte>();
-            for (int i = 0; i < input.Length / 2 + input.Length % 2; i++)
+            for (int i = 0; i < input.Length; i++)
             {
-                if (i + 1 < input.Length / 2 + input.Length % 2 || input.Length % 2 == 0)
-                    value.Add((byte)((input[^(i * 2 + 2)] - '0') * 10 + (input[^(i * 2 + 1)] - '0')));
-                else
-                    value.Add((byte)(input[^(i * 2 + 1)] - '0'));
+                value.Add((byte)input[^(i + 1)]);
             }
             while (value[^1] == 0 && value.Count > 1)
                 value.RemoveAt(value.Count - 1);
@@ -35,8 +32,7 @@ namespace ILC.Math
             for (int i = 0; i < value.Count; i++)
             {
                 var s = value[^(i + 1)].ToString();
-                if (s.Length == 1 && i != 0)
-                    result.Append("0");
+                result.Append("0");
                 result.Append(s);
             }
             return result.ToString();
@@ -87,7 +83,7 @@ namespace ILC.Math
             N result = n.Clone();
             for (int i = 0; i < result.value.Count; i++)
             {
-                if (result.value[i] + 1 >= 100)
+                if (result.value[i] + 1 >= 10)
                 {
                     result.value[i] = 0;
                 }
@@ -113,10 +109,10 @@ namespace ILC.Math
             byte one = 0;
             for (int i = 0; i < second.value.Count; i++)
             {
-                if (result.value[i] + second.value[i] + one >= 100)
+                if (result.value[i] + second.value[i] + one >= 10)
                 {
                     one = 1;
-                    result.value[i] = (byte)(result.value[i] + second.value[i] + one - 100);
+                    result.value[i] = (byte)(result.value[i] + second.value[i] + one - 10);
                 }
                 else
                 {
@@ -127,7 +123,7 @@ namespace ILC.Math
             if (one == 0) return result;
             for (int i = second.value.Count; i < result.value.Count; i++)
             {
-                if (result.value[i] + 1 >= 100)
+                if (result.value[i] + 1 >= 10)
                 {
                     result.value[i] = 0;
                 }
@@ -140,5 +136,7 @@ namespace ILC.Math
             result.value.Add(1);
             return result;
         }
+
+
     }
 }
