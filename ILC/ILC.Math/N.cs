@@ -106,6 +106,26 @@ namespace ILC.Math
             return result;
         }
 
+        public static N GCF(N first, N second)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static N LCM(N first, N second)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static N subMul(N first, N second, byte digit)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static byte FirstDiv(N first, N second)
+        {
+            throw new NotImplementedException();
+        }
+
         public static N operator ++(N n)
         {
             N result = n.Clone();
@@ -205,9 +225,19 @@ namespace ILC.Math
             return result;
         }
 
-        /* public static N operator *(N first, N second)
+         public static N operator *(N first, N second)
          {
-             return;
-         } */
+            throw new NotImplementedException();
+         }
+
+        public static N operator /(N first, N second)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static N operator %(N first, N second)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
