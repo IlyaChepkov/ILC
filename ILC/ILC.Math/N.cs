@@ -13,7 +13,7 @@ namespace ILC.Math
             value = new List<byte>();
             for (int i = 0; i < input.Length; i++)
             {
-                value.Add((byte)input[^(i + 1)]);
+                value.Add((byte)(input[^(i + 1)] - '0'));
             }
             while (value[^1] == 0 && value.Count > 1)
                 value.RemoveAt(value.Count - 1);
@@ -77,6 +77,12 @@ namespace ILC.Math
         /// <returns></returns>
         /// 
         public bool IsZero() => value.Count == 1 && value[0] == 0;
+
+        public N MulDigit(byte digit)
+        {
+            N result = Clone();
+            return result;
+        }
 
         public static N operator ++(N n)
         {
@@ -176,5 +182,10 @@ namespace ILC.Math
             result.value.RemoveAt(result.value.Count - 1);
             return result;
         }
+
+       /* public static N operator *(N first, N second)
+        {
+            return;
+        } */
     }
 }
