@@ -137,6 +137,44 @@ namespace ILC.Math
             return result;
         }
 
-
+        public static N operator -(N first, N second)
+        {
+            if (Compare(first, second) == 1)
+            {
+                N bufer = second;
+                second = first;
+                first = bufer;
+            }
+            N result = first.Clone();
+            byte one = 0;
+            for (int i = 0; i < second.value.Count; i++)
+            {
+                if (result.value[i] - second.value[i] - one < 0)
+                {
+                    one = 1;
+                    result.value[i] = (byte)(result.value[i] - second.value[i] - one + 10);
+                }
+                else
+                {
+                    result.value[i] = (byte)(result.value[i] - second.value[i] - one);
+                    one = 0;
+                }
+            }
+            if (one == 0) return result;
+            for (int i = second.value.Count; i < result.value.Count; i++)
+            {
+                if (result.value[i] - 1 < 0)
+                {
+                    result.value[i] = 9;
+                }
+                else
+                {
+                    result.value[i]--;
+                    return result;
+                }
+            }
+            result.value.RemoveAt(result.value.Count - 1);
+            return result;
+        }
     }
 }
