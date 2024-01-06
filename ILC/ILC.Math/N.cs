@@ -32,7 +32,6 @@ namespace ILC.Math
             for (int i = 0; i < value.Count; i++)
             {
                 var s = value[^(i + 1)].ToString();
-                result.Append("0");
                 result.Append(s);
             }
             return result.ToString();
@@ -41,10 +40,7 @@ namespace ILC.Math
         /// Создает полную копию объекта
         /// </summary>
         /// <returns></returns>
-        public N Clone()
-        {
-            return new N(value);
-        }
+        public N Clone() => new N(value);
 
         /// <summary>
         /// Сравнение натуральных чисел: 2 - если первое больше второго, 0, если равно, 1 иначе
@@ -81,6 +77,7 @@ namespace ILC.Math
         public N MulDigit(byte digit)
         {
             N result = Clone();
+
             return result;
         }
 
