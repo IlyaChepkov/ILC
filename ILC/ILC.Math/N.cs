@@ -15,8 +15,7 @@ namespace ILC.Math
             {
                 value.Add((byte)(input[^(i + 1)] - '0'));
             }
-            while (value[^1] == 0 && value.Count > 1)
-                value.RemoveAt(value.Count - 1);
+            RemoveZeroes();
         }
 
         private N(List<byte> value)
@@ -93,6 +92,7 @@ namespace ILC.Math
             }
             if (add == 0) return result;
             result.value.Add(add);
+            result.RemoveZeroes();
             return result;
         }
 
@@ -103,6 +103,7 @@ namespace ILC.Math
             {
                 result.value.Insert(0, 0);
             }
+            result.RemoveZeroes();
             return result;
         }
 
@@ -116,7 +117,7 @@ namespace ILC.Math
             throw new NotImplementedException();
         }
 
-        public static N subMul(N first, N second, byte digit)
+        public static N SubMul(N first, N second, byte digit)
         {
             throw new NotImplementedException();
         }
@@ -124,6 +125,12 @@ namespace ILC.Math
         public static byte FirstDiv(N first, N second)
         {
             throw new NotImplementedException();
+        }
+
+        private void RemoveZeroes()
+        {
+            while (value[^1] == 0 && value.Count > 1)
+                value.RemoveAt(value.Count - 1);
         }
 
         public static N operator ++(N n)
@@ -159,8 +166,8 @@ namespace ILC.Math
             {
                 if (result.value[i] + second.value[i] + one >= 10)
                 {
-                    one = 1;
                     result.value[i] = (byte)(result.value[i] + second.value[i] + one - 10);
+                    one = 1;
                 }
                 else
                 {
@@ -199,8 +206,8 @@ namespace ILC.Math
             {
                 if (result.value[i] - second.value[i] - one < 0)
                 {
-                    one = 1;
                     result.value[i] = (byte)(result.value[i] - second.value[i] - one + 10);
+                    one = 1;
                 }
                 else
                 {
@@ -222,6 +229,7 @@ namespace ILC.Math
                 }
             }
             result.value.RemoveAt(result.value.Count - 1);
+            result.RemoveZeroes();
             return result;
         }
 
