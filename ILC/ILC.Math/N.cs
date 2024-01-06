@@ -90,7 +90,11 @@ namespace ILC.Math
                     result.value[i] = (byte)(result.value[i] * digit + add);
                 }
             }
-            if (add == 0) return result;
+            if (add == 0)
+            {
+                result.RemoveZeroes();
+                return result; 
+            }
             result.value.Add(add);
             result.RemoveZeroes();
             return result;
@@ -225,6 +229,7 @@ namespace ILC.Math
                 else
                 {
                     result.value[i]--;
+                    result.RemoveZeroes();
                     return result;
                 }
             }
