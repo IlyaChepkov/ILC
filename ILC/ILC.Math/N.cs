@@ -88,12 +88,13 @@ namespace ILC.Math
                 else
                 {
                     result.value[i] = (byte)(result.value[i] * digit + add);
+                    add = 0;
                 }
             }
             if (add == 0)
             {
                 result.RemoveZeroes();
-                return result; 
+                return result;
             }
             result.value.Add(add);
             result.RemoveZeroes();
@@ -121,14 +122,29 @@ namespace ILC.Math
             throw new NotImplementedException();
         }
 
-        public static N SubMul(N first, N second, byte digit)
-        {
-            throw new NotImplementedException();
-        }
+        public static N SubMul(N first, N second, byte digit) =>
+            first - second.MulDigit(digit);
 
-        public static byte FirstDiv(N first, N second)
+        public static byte FirstDiv(N first, N second, out uint k)
         {
-            throw new NotImplementedException();
+            k = (uint)(first.value.Count - second.value.Count);
+            if (Compare(first, second) == 1) return 0;
+            if (Compare(first, second) == 0) return 1;
+            N res = new N("0");
+
+            if (Compare(first, second.MulK(k)) == 1)
+            {
+                k--;
+            }
+
+            for (byte i = 9; i >= 1; i--)
+            {
+                if (Compare(first, second.MulDigit(i).MulK(k)) != 1)
+                {
+                    return i;
+                }
+            }
+            return 0;
         }
 
         private void RemoveZeroes()
@@ -160,9 +176,7 @@ namespace ILC.Math
         {
             if (Compare(first, second) == 1)
             {
-                N bufer = second;
-                second = first;
-                first = bufer;
+                Helper.Swap(ref first, ref second);
             }
             N result = first.Clone();
             byte one = 0;
@@ -200,9 +214,7 @@ namespace ILC.Math
         {
             if (Compare(first, second) == 1)
             {
-                N bufer = second;
-                second = first;
-                first = bufer;
+                Helper.Swap(ref first, ref second);
             }
             N result = first.Clone();
             byte one = 0;
@@ -219,7 +231,11 @@ namespace ILC.Math
                     one = 0;
                 }
             }
-            if (one == 0) return result;
+            if (one == 0)
+            {
+                result.RemoveZeroes();
+                return result;
+            }
             for (int i = second.value.Count; i < result.value.Count; i++)
             {
                 if (result.value[i] - 1 < 0)
@@ -238,13 +254,38 @@ namespace ILC.Math
             return result;
         }
 
-         public static N operator *(N first, N second)
-         {
-            throw new NotImplementedException();
-         }
+        public static N operator *(N first, N second)
+        {
+            if (Compare(first, second) == 1)
+            {
+                Helper.Swap(ref first, ref second);
+            }
+            N result = new N("0");
+            for (uint i = 0; i < second.value.Count; i++)
+            {
+                result += first.MulDigit(second.value[(int)i]).MulK(i);
+            }
+            return result;
+        }
 
         public static N operator /(N first, N second)
         {
+            if (Compare(first, second) == 1) return new N("0");
+            List<byte> result = new List<byte>();
+            uint k = (uint)(first.value.Count - second.value.Count);
+            while (Compare(first, second) != 1 || k > 0)
+            {
+                int tempK = (int)k;
+                byte digit = FirstDiv(first, second, out k);
+                while (tempK - 1 > k)
+                {
+                    result.Insert(0, 0);
+                    tempK--;
+                }
+                first -= second.MulDigit(digit).MulK(k);
+                result.Insert(0, digit);
+            }
+            return new N(result);
             throw new NotImplementedException();
         }
 
