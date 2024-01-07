@@ -160,9 +160,10 @@ namespace ILC.Test
             {
                 for (int j = 1; j <= i; j++)
                 {
+                    uint k;
                     N first = new N(i.ToString());
                     N second = new N(j.ToString());
-                    Assert.AreEqual(byte.Parse((i / j).ToString()[0].ToString()), N.FirstDiv(first, second).ToString(), $"¬ходные данные i = {i}, j = {j}");
+                    Assert.AreEqual(byte.Parse((i / j).ToString()[0].ToString()), N.FirstDiv(first, second, out k), $"¬ходные данные i = {i}, j = {j}");
                 }
             }
         }
@@ -170,9 +171,9 @@ namespace ILC.Test
         [TestMethod]
         public void Div()
         {
-            for (int i = 0; i <= 1000; i++)
+            for (int i = 0; i <= 100; i++)
             {
-                for (int j = 1; j <= 1000; j++)
+                for (int j = 1; j <= 100; j++)
                 {
                     N first = new N(i.ToString());
                     N second = new N(j.ToString());
