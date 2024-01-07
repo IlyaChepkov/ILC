@@ -164,8 +164,8 @@ namespace ILC.Test
                     N first = new N(i.ToString());
                     N second = new N(j.ToString());
                     Assert.AreEqual(byte.Parse((i / j).ToString()[0].ToString()), N.FirstDiv(first, second, out k), $"¬ходные данные i = {i}, j = {j}");
-                    Assert.IsTrue(i >= byte.Parse((i / j).ToString()[0].ToString()) * j * System.Math.Pow(10, k));
-                    Assert.IsTrue(i < byte.Parse((i / j).ToString()[0].ToString()) * j * System.Math.Pow(10, k + 1));
+                    Assert.IsTrue(i >= byte.Parse((i / j).ToString()[0].ToString()) * j * System.Math.Pow(10, k), $"—лишком маленький k ¬ходные данные i = {i}, j = {j}");
+                    Assert.IsTrue(i < byte.Parse((i / j).ToString()[0].ToString()) * j * System.Math.Pow(10, k + 1), $"—лишком большой k ¬ходные данные i = {i}, j = {j}");
                 }
             }
         }
