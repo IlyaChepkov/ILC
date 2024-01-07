@@ -158,7 +158,7 @@ namespace ILC.Test
         {
             for (int i = 0; i <= 1000; i++)
             {
-                for (int j = 1; j <= i; j++)
+                for (int j = 1; j <= 1000; j++)
                 {
                     int k;
                     N first = new N(i.ToString());
