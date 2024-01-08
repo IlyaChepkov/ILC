@@ -22,6 +22,15 @@ namespace ILC.Math
             value = new N(input);
         }
 
+        public override string ToString() => throw new NotImplementedException();
+
+        public Z Clone() => throw new NotImplementedException();
+
+        public static byte Compare(Z first, Z second) => throw new NotImplementedException();
+
+        public bool IsZero() => throw new NotImplementedException();
+
+
         public Z Abs()
         {
             throw new NotImplementedException();
@@ -41,12 +50,14 @@ namespace ILC.Math
             throw new NotImplementedException();
         }
 
-        public static implicit operator N(Z param)
+        public static N LCM(N first, N second) => throw new NotImplementedException();
+
+        public static explicit operator N(Z param)
         {
             throw new NotImplementedException();
         }
 
-        public static explicit operator Z(N param)
+        public static implicit operator Z(N param)
         {
             throw new NotImplementedException();
         }
