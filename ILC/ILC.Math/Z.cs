@@ -36,6 +36,10 @@ namespace ILC.Math
         {
             throw new NotImplementedException();
         }
+        public static Z GCF(Z first, Z second)
+        {
+            throw new NotImplementedException();
+        }
 
         public static implicit operator N(Z param)
         {
