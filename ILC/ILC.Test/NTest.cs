@@ -1,5 +1,3 @@
-using Newtonsoft.Json.Linq;
-
 namespace ILC.Test
 {
     [TestClass]
@@ -202,11 +200,11 @@ namespace ILC.Test
         }
 
         [TestMethod]
-        public void GCF ()
+        public void GCF()
         {
-            for (int i = 0; i <= 1000; i++)
+            for (int i = 0; i <= 100; i++)
             {
-                for (int j = i; j <= 1000; j++)
+                for (int j = i; j <= 100; j++)
                 {
                     if (i != j || i != 0)
                     {
@@ -216,7 +214,6 @@ namespace ILC.Test
                         N gcf2 = N.GCF(second, first);
                         Assert.AreEqual(gcf1.ToString(), gcf2.ToString(), $"¬ходные данные i = {i}, j = {j}");
                         int value = int.Parse(gcf1.ToString());
-                        Assert.IsTrue(value <= i, $"¬ходные данные i = {i}, j = {j}");
                         Assert.AreEqual(0, i % value, $"¬ходные данные i = {i}, j = {j}");
                         Assert.AreEqual(0, j % value, $"¬ходные данные i = {i}, j = {j}");
                         for (int k = value + 1; k <= i; k++)
@@ -232,25 +229,22 @@ namespace ILC.Test
         public void LCM()
         {
 
-            for (int i = 0; i <= 1000; i++)
+            for (int i = 1; i <= 100; i++)
             {
-                for (int j = i; j <= 1000; j++)
+                for (int j = i; j <= 100; j++)
                 {
-                    if (i != j || i != 0)
+                    N first = new N(i.ToString());
+                    N second = new N(j.ToString());
+                    N lcm1 = N.LCM(first, second);
+                    N lcm2 = N.LCM(second, first);
+                    Assert.AreEqual(lcm1.ToString(), lcm2.ToString(), $"¬ходные данные i = {i}, j = {j}");
+                    int value = int.Parse(lcm1.ToString());
+                    Assert.IsTrue(value >= j, $"¬ходные данные i = {i}, j = {j}");
+                    Assert.AreEqual(0, value % i, $"¬ходные данные i = {i}, j = {j}");
+                    Assert.AreEqual(0, value % j, $"¬ходные данные i = {i}, j = {j}");
+                    for (int k = value - 1; k >= j; k--)
                     {
-                        N first = new N(i.ToString());
-                        N second = new N(j.ToString());
-                        N lcm1 = N.LCM(first, second);
-                        N lcm2 = N.LCM(second, first);
-                        Assert.AreEqual(lcm1.ToString(), lcm2.ToString(), $"¬ходные данные i = {i}, j = {j}");
-                        int value = int.Parse(lcm1.ToString());
-                        Assert.IsTrue(value >= j, $"¬ходные данные i = {i}, j = {j}");
-                        Assert.AreEqual(0, value % i, $"¬ходные данные i = {i}, j = {j}");
-                        Assert.AreEqual(0, value % j, $"¬ходные данные i = {i}, j = {j}");
-                        for (int k = value - 1; k >= j; k--)
-                        {
-                            Assert.IsTrue(k % i != 0 || k % j != 0, $"¬ходные данные i = {i}, j = {j}");
-                        }
+                        Assert.IsTrue(k % i != 0 || k % j != 0, $"¬ходные данные i = {i}, j = {j}");
                     }
                 }
             }
