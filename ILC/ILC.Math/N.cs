@@ -114,32 +114,38 @@ namespace ILC.Math
 
         public static N GCF(N first, N second)
         {
+            while (!first.IsZero() && !second.IsZero())
+            {
+                if (Compare(first, second) == 2)
+                    first %= second;
+                else
+                    second %= first;
+            }
+            return first + second;
             throw new NotImplementedException();
         }
 
-        public static N LCM(N first, N second)
-        {
-            throw new NotImplementedException();
-        }
+        public static N LCM(N first, N second) => (first * second) / GCF(first, second);
 
         public static N SubMul(N first, N second, byte digit) =>
             first - second.MulDigit(digit);
 
-        public static byte FirstDiv(N first, N second, out uint k)
+        public static byte FirstDiv(N first, N second, out int k)
         {
-            k = (uint)(first.value.Count - second.value.Count);
+            k = first.value.Count - second.value.Count;
+            if (k < 0) k = 0;
             if (Compare(first, second) == 1) return 0;
             if (Compare(first, second) == 0) return 1;
             N res = new N("0");
 
-            if (Compare(first, second.MulK(k)) == 1)
+            if (Compare(first, second.MulK((uint)k)) == 1)
             {
                 k--;
             }
 
             for (byte i = 9; i >= 1; i--)
             {
-                if (Compare(first, second.MulDigit(i).MulK(k)) != 1)
+                if (Compare(first, second.MulDigit(i).MulK((uint)k)) != 1)
                 {
                     return i;
                 }
@@ -272,26 +278,25 @@ namespace ILC.Math
         {
             if (Compare(first, second) == 1) return new N("0");
             List<byte> result = new List<byte>();
-            uint k = (uint)(first.value.Count - second.value.Count);
+            int k = first.value.Count - second.value.Count;
             while (Compare(first, second) != 1 || k > 0)
             {
-                int tempK = (int)k;
+                int tempK = k;
                 byte digit = FirstDiv(first, second, out k);
                 while (tempK - 1 > k)
                 {
                     result.Insert(0, 0);
                     tempK--;
                 }
-                first -= second.MulDigit(digit).MulK(k);
+                first -= second.MulDigit(digit).MulK((uint)k);
                 result.Insert(0, digit);
             }
             return new N(result);
-            throw new NotImplementedException();
         }
 
         public static N operator %(N first, N second)
         {
-            throw new NotImplementedException();
+            return first - (first / second) * second;
         }
     }
 }
