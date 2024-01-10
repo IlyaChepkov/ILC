@@ -110,6 +110,11 @@
 
         public static Z operator +(Z first, Z second)
         {
+            Z result = new Z("0");
+            if(!first.isPositive && !second.isPositive)
+            {
+                
+            }
             throw new NotImplementedException();
         }
 
