@@ -50,7 +50,7 @@ namespace ILC.Math
             throw new NotImplementedException();
         }
 
-        public static N LCM(N first, N second) => throw new NotImplementedException();
+        public static N LCM(Z first, Z second) => throw new NotImplementedException();
 
         public static explicit operator N(Z param)
         {
