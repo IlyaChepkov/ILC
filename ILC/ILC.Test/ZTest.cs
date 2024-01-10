@@ -75,7 +75,7 @@ namespace ILC.Test
                 {
                     Z first = new Z(i.ToString());
                     Z second = new Z(j.ToString());
-                    Assert.AreEqual(System.Math.Abs(i - j).ToString(), (first - second).ToString(), $"¬ходные данные i = {i}, j = {j}");
+                    Assert.AreEqual((i - j).ToString(), (first - second).ToString(), $"¬ходные данные i = {i}, j = {j}");
                 }
             }
         }
@@ -103,8 +103,8 @@ namespace ILC.Test
                 {
                     if (j != 0)
                     {
-                        N first = new N(i.ToString());
-                        N second = new N(j.ToString());
+                        Z first = new Z(i.ToString());
+                        Z second = new Z(j.ToString());
                         Assert.AreEqual((i / j).ToString(), (first / second).ToString(), $"¬ходные данные i = {i}, j = {j}");
                     }
                 }
@@ -120,8 +120,8 @@ namespace ILC.Test
                 {
                     if (j != 0)
                     {
-                        N first = new N(i.ToString());
-                        N second = new N(j.ToString());
+                        Z first = new Z(i.ToString());
+                        Z second = new Z(j.ToString());
                         Assert.AreEqual((i % j).ToString(), (first % second).ToString(), $"¬ходные данные i = {i}, j = {j}");
                     }
                 }
@@ -164,7 +164,7 @@ namespace ILC.Test
             for (int i = -1000; i <= 1000; i++)
             {
                 Z first = new Z(i.ToString());
-                Assert.AreEqual(i == 0 ? 0 : i > 0 ? 2 : 1, first.IsPositive().ToString(), $"¬ходные данные i = {i}");
+                Assert.AreEqual(i == 0 ? 0 : i > 0 ? 2 : 1, first.IsPositive(), $"¬ходные данные i = {i}");
             }
         }
 
@@ -187,10 +187,10 @@ namespace ILC.Test
                 {
                     if (i != j || i != 0)
                     {
-                        N first = new N(i.ToString());
-                        N second = new N(j.ToString());
-                        N gcf1 = N.GCF(first, second);
-                        N gcf2 = N.GCF(second, first);
+                        Z first = new Z(i.ToString());
+                        Z second = new Z(j.ToString());
+                        Z gcf1 = Z.GCF(first, second);
+                        Z gcf2 = Z.GCF(second, first);
                         Assert.AreEqual(gcf1.ToString(), gcf2.ToString(), $"¬ходные данные i = {i}, j = {j}");
                         int value = int.Parse(gcf1.ToString());
                         Assert.AreEqual(0, i % value, $"¬ходные данные i = {i}, j = {j}");
@@ -212,10 +212,10 @@ namespace ILC.Test
             {
                 for (int j = i; j <= 100; j++)
                 {
-                    N first = new N(i.ToString());
-                    N second = new N(j.ToString());
-                    N lcm1 = N.LCM(first, second);
-                    N lcm2 = N.LCM(second, first);
+                    Z first = new Z(i.ToString());
+                    Z second = new Z(j.ToString());
+                    Z lcm1 = Z.LCM(first, second);
+                    Z lcm2 = Z.LCM(second, first);
                     Assert.AreEqual(lcm1.ToString(), lcm2.ToString(), $"¬ходные данные i = {i}, j = {j}");
                     int value = int.Parse(lcm1.ToString());
                     Assert.IsTrue(value >= j, $"¬ходные данные i = {i}, j = {j}");
