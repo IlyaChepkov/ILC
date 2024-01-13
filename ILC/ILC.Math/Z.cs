@@ -7,7 +7,7 @@
 
         public Z(string input)
         {
-            if (input =="-0")
+            if (input == "-0")
             {
                 isPositive = true;
                 value = new N(input);
@@ -111,11 +111,32 @@
         public static Z operator +(Z first, Z second)
         {
             Z result = new Z("0");
-            if(!first.isPositive && !second.isPositive)
+            if (second.value.IsZero())
             {
-                
+                result = first;
+                return result;
             }
-            throw new NotImplementedException();
+            if (!first.isPositive && !second.isPositive || first.isPositive && second.isPositive)
+            {
+                result.isPositive = first.isPositive;
+                result.value = first.value + second.value;
+                return result;
+            }
+            else
+            {
+                if (N.Compare(first.value, second.value) == 2)
+                {
+                    result.value = first.value - second.value;
+                    result.isPositive = first.isPositive;
+                }
+                else
+                {
+                    result.value = second.value - first.value;
+                    result.isPositive = !first.isPositive;
+                }
+                if (result.value.IsZero()) result.isPositive = true;
+                return result;
+            }
         }
 
         public static Z operator -(Z first, Z second)
