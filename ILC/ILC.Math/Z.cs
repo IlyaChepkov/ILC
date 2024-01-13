@@ -25,6 +25,7 @@
         {
             this.value = value;
             this.isPositive = isPositive;
+            if (value.IsZero()) this.isPositive = true;
         }
 
         public override string ToString() =>
@@ -111,11 +112,6 @@
         public static Z operator +(Z first, Z second)
         {
             Z result = new Z("0");
-            if (second.value.IsZero())
-            {
-                result = first;
-                return result;
-            }
             if (!first.isPositive && !second.isPositive || first.isPositive && second.isPositive)
             {
                 result.isPositive = first.isPositive;
@@ -141,22 +137,19 @@
 
         public static Z operator -(Z first, Z second)
         {
-            throw new NotImplementedException();
+            second.isPositive = !second.isPositive;
+            Z res = first + second;
+            second.isPositive = !second.isPositive;
+            return res;
         }
 
-        public static Z operator *(Z first, Z second)
-        {
-            throw new NotImplementedException();
-        }
+        public static Z operator *(Z first, Z second) => 
+            new Z(first.value * second.value, first.isPositive == second.isPositive);
 
-        public static Z operator /(Z first, Z second)
-        {
-            throw new NotImplementedException();
-        }
+        public static Z operator /(Z first, Z second) =>
+            new Z(first.value / second.value, first.isPositive == second.isPositive);
 
-        public static Z operator %(Z first, Z second)
-        {
-            throw new NotImplementedException();
-        }
+        public static Z operator %(Z first, Z second) =>
+            new Z(first.value % second.value, second.isPositive);
     }
 }
