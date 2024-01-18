@@ -207,23 +207,25 @@ namespace ILC.Test
         [TestMethod]
         public void LCM()
         {
-
             for (int i = -100; i <= 100; i++)
             {
                 for (int j = i; j <= 100; j++)
                 {
-                    Z first = new Z(i.ToString());
-                    Z second = new Z(j.ToString());
-                    Z lcm1 = Z.LCM(first, second);
-                    Z lcm2 = Z.LCM(second, first);
-                    Assert.AreEqual(lcm1.ToString(), lcm2.ToString(), $"¬ходные данные i = {i}, j = {j}");
-                    int value = int.Parse(lcm1.ToString());
-                    Assert.IsTrue(value >= j, $"¬ходные данные i = {i}, j = {j}");
-                    Assert.AreEqual(0, value % i, $"¬ходные данные i = {i}, j = {j}");
-                    Assert.AreEqual(0, value % j, $"¬ходные данные i = {i}, j = {j}");
-                    for (int k = value - 1; k >= j && k >= 0; k--)
+                    if (i != 0 && j != 0)
                     {
-                        Assert.IsTrue(k % i != 0 || k % j != 0, $"¬ходные данные i = {i}, j = {j}");
+                        Z first = new Z(i.ToString());
+                        Z second = new Z(j.ToString());
+                        Z lcm1 = Z.LCM(first, second);
+                        Z lcm2 = Z.LCM(second, first);
+                        Assert.AreEqual(lcm1.ToString(), lcm2.ToString(), $"¬ходные данные i = {i}, j = {j}");
+                        int value = int.Parse(lcm1.ToString());
+                        Assert.IsTrue(value >= j, $"¬ходные данные i = {i}, j = {j}");
+                        Assert.AreEqual(0, value % i, $"¬ходные данные i = {i}, j = {j}");
+                        Assert.AreEqual(0, value % j, $"¬ходные данные i = {i}, j = {j}");
+                        for (int k = value - 1; k >= j && k > 0; k--)
+                        {
+                            Assert.IsTrue(k % i != 0 || k % j != 0, $"¬ходные данные i = {i}, j = {j}");
+                        }
                     }
                 }
             }
