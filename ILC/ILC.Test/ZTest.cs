@@ -122,7 +122,7 @@ namespace ILC.Test
                     {
                         Z first = new Z(i.ToString());
                         Z second = new Z(j.ToString());
-                        Assert.AreEqual((i % j).ToString(), (first % second).ToString(), $"¬ходные данные i = {i}, j = {j}");
+                        Assert.AreEqual((System.Math.Abs(i % j) * System.Math.Sign(j)).ToString(), (first % second).ToString(), $"¬ходные данные i = {i}, j = {j}");
                     }
                 }
             }
@@ -221,7 +221,7 @@ namespace ILC.Test
                     Assert.IsTrue(value >= j, $"¬ходные данные i = {i}, j = {j}");
                     Assert.AreEqual(0, value % i, $"¬ходные данные i = {i}, j = {j}");
                     Assert.AreEqual(0, value % j, $"¬ходные данные i = {i}, j = {j}");
-                    for (int k = value - 1; k >= j; k--)
+                    for (int k = value - 1; k >= j && k >= 0; k--)
                     {
                         Assert.IsTrue(k % i != 0 || k % j != 0, $"¬ходные данные i = {i}, j = {j}");
                     }
