@@ -122,7 +122,6 @@ namespace ILC.Math
                     second %= first;
             }
             return first + second;
-            throw new NotImplementedException();
         }
 
         public static N LCM(N first, N second) => (first * second) / GCF(first, second);
