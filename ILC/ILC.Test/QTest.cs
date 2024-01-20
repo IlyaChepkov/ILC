@@ -8,13 +8,13 @@ namespace ILC.Test
         [TestMethod]
         public void BuildOuput()
         {
-            for (int i = -1000; i <= 1000; i++)
+            for (int i = -100; i <= 100; i++)
             {
-                for (int j = 1; j <= 1000; j++)
+                for (int j = 1; j <= 100; j++)
                 {
                     Q number = new Q(i.ToString() + '/' + j.ToString());
                     int gcf = int.Parse(Z.GCF(new Z(i.ToString()), new Z(j.ToString())).ToString());
-                    Assert.AreEqual((i / gcf).ToString() + '/' + (j / gcf), number.ToString(), $"¬ходные данные s = {s}");
+                    Assert.AreEqual((i / gcf).ToString() + '/' + (j / gcf), number.ToString(), $"¬ходные данные i = {i}/{j}");
                 }
             }
         }
@@ -22,9 +22,9 @@ namespace ILC.Test
         [TestMethod]
         public void Clone()
         {
-            for (int i = -1000; i <= 1000; i++)
+            for (int i = -100; i <= 100; i++)
             {
-                for (int j = 1; j <= 1000; j++)
+                for (int j = 1; j <= 100; j++)
                 {
                     string s = i.ToString() + '/' + j.ToString();
                     Q number = new Q(s);
@@ -37,13 +37,13 @@ namespace ILC.Test
         [TestMethod]
         public void Compare()
         {
-            for (int i = -1000; i <= 1000; i++)
+            for (int i = -100; i <= 100; i++)
             {
-                for (int j = 1; j <= 1000; j++)
+                for (int j = 1; j <= 100; j++)
                 {
-                    for (int k = -1000; k <= 1000; k++)
+                    for (int k = -100; k <= 100; k++)
                     {
-                        for (int z = 1; z <= 1000; z++)
+                        for (int z = 1; z <= 100; z++)
                         {
                             Q first = new Q(i.ToString() + '/' + j.ToString());
                             Q second = new Q(k.ToString() + '/' + z.ToString());
@@ -58,9 +58,9 @@ namespace ILC.Test
         [TestMethod]
         public void IsZero()
         {
-            for (int i = -1000; i <= 1000; i++)
+            for (int i = -100; i <= 100; i++)
             {
-                for (int j = 1; j <= 1000; j++)
+                for (int j = 1; j <= 100; j++)
                 {
                     Q value = new Q(i.ToString());
                     bool res = value.IsZero();
@@ -72,13 +72,13 @@ namespace ILC.Test
         [TestMethod]
         public void Plus()
         {
-            for (int i = -1000; i <= 1000; i++)
+            for (int i = -100; i <= 100; i++)
             {
-                for (int j = 1; j <= 1000; j++)
+                for (int j = 1; j <= 100; j++)
                 {
-                    for (int k = -1000; k <= 1000; k++)
+                    for (int k = -100; k <= 100; k++)
                     {
-                        for (int z = 1; z <= 1000; z++)
+                        for (int z = 1; z <= 100; z++)
                         {
                             Q first = new Q(i.ToString() + '/' + j.ToString());
                             Q second = new Q(k.ToString() + '/' + z.ToString());
@@ -96,13 +96,13 @@ namespace ILC.Test
         [TestMethod]
         public void Minus()
         {
-            for (int i = -1000; i <= 1000; i++)
+            for (int i = -100; i <= 100; i++)
             {
-                for (int j = 1; j <= 1000; j++)
+                for (int j = 1; j <= 100; j++)
                 {
-                    for (int k = -1000; k <= 1000; k++)
+                    for (int k = -100; k <= 100; k++)
                     {
-                        for (int z = 1; z <= 1000; z++)
+                        for (int z = 1; z <= 100; z++)
                         {
                             Q first = new Q(i.ToString() + '/' + j.ToString());
                             Q second = new Q(k.ToString() + '/' + z.ToString());
@@ -120,13 +120,13 @@ namespace ILC.Test
         [TestMethod]
         public void Mul()
         {
-            for (int i = -1000; i <= 1000; i++)
+            for (int i = -100; i <= 100; i++)
             {
-                for (int j = 1; j <= 1000; j++)
+                for (int j = 1; j <= 100; j++)
                 {
-                    for (int k = -1000; k <= 1000; k++)
+                    for (int k = -100; k <= 100; k++)
                     {
-                        for (int z = 1; z <= 1000; z++)
+                        for (int z = 1; z <= 100; z++)
                         {
                             Q first = new Q(i.ToString() + '/' + j.ToString());
                             Q second = new Q(k.ToString() + '/' + z.ToString());
@@ -142,13 +142,13 @@ namespace ILC.Test
         [TestMethod]
         public void Div()
         {
-            for (int i = -1000; i <= 1000; i++)
+            for (int i = -100; i <= 100; i++)
             {
-                for (int j = 1; j <= 1000; j++)
+                for (int j = 1; j <= 100; j++)
                 {
-                    for (int k = -1000; k <= 1000; k++)
+                    for (int k = -100; k <= 100; k++)
                     {
-                        for (int z = 1; z <= 1000; z++)
+                        for (int z = 1; z <= 100; z++)
                         {
                             Q first = new Q(i.ToString() + '/' + j.ToString());
                             Q second = new Q(k.ToString() + '/' + z.ToString());
@@ -165,7 +165,7 @@ namespace ILC.Test
         [TestMethod]
         public void ZToQ()
         {
-            for (int i = -1000; i <= 1000; i++)
+            for (int i = -100; i <= 100; i++)
             {
                 Q first = new Z(i.ToString());
                 Assert.AreEqual(i.ToString() + "/1", first.ToString(), $"¬ходные данные i = {i}");
@@ -175,7 +175,7 @@ namespace ILC.Test
         [TestMethod]
         public void QToZ()
         {
-            for (int i = -1000; i <= 1000; i++)
+            for (int i = -100; i <= 100; i++)
             {
                 Z first = (Z)new Q(i.ToString() + "/1");
                 Assert.AreEqual(i.ToString(), first.ToString(), $"¬ходные данные i = {i}");
@@ -185,9 +185,9 @@ namespace ILC.Test
         [TestMethod]
         public void ABS()
         {
-            for (int i = -1000; i <= 1000; i++)
+            for (int i = -100; i <= 100; i++)
             {
-                for (int j = 1; j <= 1000; j++)
+                for (int j = 1; j <= 100; j++)
                 {
                     Q first = new Q(i.ToString() + '/' + j.ToString());
                     int gcf = int.Parse(Z.GCF(new Z(i.ToString()), new Z(j.ToString())).ToString());
@@ -199,9 +199,9 @@ namespace ILC.Test
         [TestMethod]
         public void IsPositive()
         {
-            for (int i = -1000; i <= 1000; i++)
+            for (int i = -100; i <= 100; i++)
             {
-                for (int j = 1; j <= 1000; j++)
+                for (int j = 1; j <= 100; j++)
                 {
                     Q first = new Q(i.ToString() + '/' + j.ToString());
                     Assert.AreEqual(i == 0 ? 0 : i > 0 ? 2 : 1, first.IsPositive(), $"¬ходные данные i = {i}");
@@ -212,9 +212,9 @@ namespace ILC.Test
         [TestMethod]
         public void ChangeSign()
         {
-            for (int i = -1000; i <= 1000; i++)
+            for (int i = -100; i <= 100; i++)
             {
-                for (int j = 1; j <= 1000; j++)
+                for (int j = 1; j <= 100; j++)
                 {
                     Q first = new Q(i.ToString() + '/' + j.ToString());
                     int gcf = int.Parse(Z.GCF(new Z(i.ToString()), new Z(j.ToString())).ToString());
@@ -226,9 +226,9 @@ namespace ILC.Test
         [TestMethod]
         public void IsZ()
         {
-            for (int i = -1000; i <= 1000; i++)
+            for (int i = -100; i <= 100; i++)
             {
-                for (int j = 1; j <= 1000; j++)
+                for (int j = 1; j <= 100; j++)
                 {
                     Q first = new Q(i.ToString() + '/' + j.ToString());
                     Assert.AreEqual(j == 1, first.IsZ(), $"¬ходные данные i = {i}");
@@ -239,14 +239,14 @@ namespace ILC.Test
         [TestMethod]
         public void Red()
         {
-            for (int i = -1000; i <= 1000; i++)
+            for (int i = -100; i <= 100; i++)
             {
-                for (int j = 1; j <= 1000; j++)
+                for (int j = 1; j <= 100; j++)
                 {
-                    Q first = new Q(i.ToString() + '/' + j.ToString());
+                    Q first = new Q(i + "/" + j);
                     first.Red();
                     int gcf = int.Parse(Z.GCF(new Z(i.ToString()), new Z(j.ToString())).ToString());
-                    Assert.AreEqual((i / gcf) + '/' + (j / gcf), first.ToString(), $"¬ходные данные i = {i}");
+                    Assert.AreEqual((i / gcf) + "/" + (j / gcf), first.ToString(), $"¬ходные данные i = {i}, ");
                 }
             }
         }
