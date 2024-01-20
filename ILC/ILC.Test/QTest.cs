@@ -1,3 +1,5 @@
+using ILC.Math;
+
 namespace ILC.Test
 {
     [TestClass]
@@ -10,9 +12,9 @@ namespace ILC.Test
             {
                 for (int j = 1; j <= 1000; j++)
                 {
-                    string s = i.ToString() + '/' + j.ToString();
-                    Q number = new Q(s);
-                    Assert.AreEqual(s, number.ToString(), $"¬ходные данные s = {s}");
+                    Q number = new Q(i.ToString() + '/' + j.ToString());
+                    int gcf = int.Parse(Z.GCF(new Z(i.ToString()), new Z(j.ToString())).ToString());
+                    Assert.AreEqual((i / gcf).ToString() + '/' + (j / gcf), number.ToString(), $"¬ходные данные s = {s}");
                 }
             }
         }
@@ -46,7 +48,7 @@ namespace ILC.Test
                             Q first = new Q(i.ToString() + '/' + j.ToString());
                             Q second = new Q(k.ToString() + '/' + z.ToString());
                             byte res = Q.Compare(first, second);
-                            Assert.AreEqual(i > j ? 2 : i < j ? 1 : 0, res, $"¬ходные данные i = {i}/{j}, j = {k}/{z}");
+                            Assert.AreEqual((double)(i) / j > (double)(k)/z ? 2 : i < j ? 1 : 0, res, $"¬ходные данные i = {i}/{j}, j = {k}/{z}");
                         }
                     }
                 }
@@ -188,7 +190,8 @@ namespace ILC.Test
                 for (int j = 1; j <= 1000; j++)
                 {
                     Q first = new Q(i.ToString() + '/' + j.ToString());
-                    Assert.AreEqual(System.Math.Abs(i) + '/' + j, first.Abs().ToString(), $"¬ходные данные i = {i}");
+                    int gcf = int.Parse(Z.GCF(new Z(i.ToString()), new Z(j.ToString())).ToString());
+                    Assert.AreEqual(System.Math.Abs(i / gcf) + '/' + (j / gcf), first.Abs().ToString(), $"¬ходные данные i = {i}");
                 }
             }
         }
@@ -214,7 +217,8 @@ namespace ILC.Test
                 for (int j = 1; j <= 1000; j++)
                 {
                     Q first = new Q(i.ToString() + '/' + j.ToString());
-                    Assert.AreEqual((-i).ToString() + '/' + j.ToString(), first.ChangeSign().ToString(), $"¬ходные данные i = {i}");
+                    int gcf = int.Parse(Z.GCF(new Z(i.ToString()), new Z(j.ToString())).ToString());
+                    Assert.AreEqual((-i / gcf).ToString() + '/' + (j / gcf).ToString(), first.ChangeSign().ToString(), $"¬ходные данные i = {i}");
                 }
             }
         }
