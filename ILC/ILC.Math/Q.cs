@@ -8,10 +8,25 @@ namespace ILC.Math
 {
     public class Q
     {
+        private Z up;
+        private N down;
 
-        public Q(string input) => throw new NotImplementedException();
+        public Q(string input) 
+        {
+            string[] inputArray = input.Split('/');
+            if (inputArray.Length > 2) 
+                throw new ArgumentException("не число");
+            up = new Z(inputArray[0]);
+            if (inputArray.Length == 1)
+                down = new N("1");
+            else
+                down = new N(inputArray[1]);
+        }
 
-        public override string ToString() => throw new NotImplementedException();
+        public override string ToString() 
+        {
+            return up.ToString() + "/" + down.ToString();
+        }
 
         public Q Clone() => throw new NotImplementedException();
 
@@ -23,7 +38,12 @@ namespace ILC.Math
         /// Сокращение дроби
         /// </summary>
         /// <exception cref="NotImplementedException"></exception>
-        public void Red() => throw new NotImplementedException();
+        public void Red()
+        {
+            N gsf = N.GCF((N)up.Abs(), down);
+            up /= gsf;
+            down /= gsf;
+        }
 
         public bool IsZ() => throw new NotImplementedException();
 
