@@ -20,19 +20,30 @@ namespace ILC.Math
             if (inputArray.Length == 1)
                 down = new N("1");
             else
+            {
                 down = new N(inputArray[1]);
+                if (down.IsZero())
+                    throw new ArgumentException("на ноль делить нельзя!!!");
+            }
+            Red();
         }
 
-        public override string ToString() 
+        private Q(Z up, N down)
         {
-            return up.ToString() + "/" + down.ToString();
+            this.up = up;
+            this.down = down;
+            Red();
         }
 
-        public Q Clone() => throw new NotImplementedException();
+        public override string ToString() => 
+            up.ToString() + "/" + down.ToString();
 
-        public static byte Compare(Q first, Q second) => throw new NotImplementedException();
+        public Q Clone() => new Q(up.Clone(), down.Clone());
 
-        public bool IsZero() => throw new NotImplementedException();
+        public static byte Compare(Q first, Q second)
+            => Z.Compare(first.up * second.down, second.up * first.down);
+
+        public bool IsZero() => up.IsZero();
 
         /// <summary>
         /// Сокращение дроби
@@ -45,51 +56,48 @@ namespace ILC.Math
             down /= gsf;
         }
 
-        public bool IsZ() => throw new NotImplementedException();
+        public bool IsZ() => N.Compare(down, new N("1")) == 0;
 
-        public Z Abs()
-        {
-            throw new NotImplementedException();
-        }
+        public Q Abs() => new Q(up.Abs(), down.Clone());
 
-        public byte IsPositive()
-        {
-            throw new NotImplementedException();
-        }
+        public byte IsPositive() => up.IsPositive();
 
-        public Z ChangeSign()
-        {
-            throw new NotImplementedException();
-        }
+        public Q ChangeSign() => new Q(up.ChangeSign(), down.Clone());
 
         public static explicit operator Z(Q param)
         {
-            throw new NotImplementedException();
+            if (!param.IsZ())
+                throw new ArgumentException();
+            return param.up.Clone();
         }
 
-        public static implicit operator Q(Z param)
-        {
-            throw new NotImplementedException();
-        }
+        public static implicit operator Q(Z param) =>
+            new Q(param.Clone(), new N("1"));
 
         public static Q operator +(Q first, Q second)
         {
-            throw new NotImplementedException();
+            Q result = new Q(first.up * second.down + second.up * first.down,
+                second.down * first.down);
+            result.Red();
+            return result;
         }
 
-        public static Q operator -(Q first, Q second)
-        {
-            throw new NotImplementedException();
-        }
+        public static Q operator -(Q first, Q second) => first + second.ChangeSign();
 
         public static Q operator *(Q first, Q second)
         {
-            throw new NotImplementedException();
+            Q result = new Q(first.up * second.up, first.down * second.down);
+            result.Red();
+            return result;
         }
 
         public static Q operator /(Q first, Q second)
         {
-            throw new NotImplementedException();
+            Q result = new Q(first.up * second.down, first.down * (N)second.up.Abs());
+            result.Red();
+            if (second.IsPositive() == 1) 
+                result = result.ChangeSign();
+            return result;
         }
     }
 }

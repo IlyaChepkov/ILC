@@ -31,7 +31,7 @@
         public override string ToString() =>
             isPositive == false ? "-" + value.ToString() : "" + value.ToString();
 
-        public Z Clone() => new Z(value, isPositive);
+        public Z Clone() => new Z(value.Clone(), isPositive);
 
         public static byte Compare(Z first, Z second)
         {
@@ -101,12 +101,12 @@
         {
             if (!param.isPositive)
                 throw new ArgumentException();
-            return param.value;
+            return param.value.Clone();
         }
 
         public static implicit operator Z(N param)
         {
-            return new Z(param.ToString());
+            return new Z(param.Clone(), true);
         }
 
         public static Z operator +(Z first, Z second)

@@ -48,7 +48,7 @@ namespace ILC.Test
                             Q first = new Q(i.ToString() + '/' + j.ToString());
                             Q second = new Q(k.ToString() + '/' + z.ToString());
                             byte res = Q.Compare(first, second);
-                            Assert.AreEqual((double)(i) / j > (double)(k)/z ? 2 : i < j ? 1 : 0, res, $"¬ходные данные i = {i}/{j}, j = {k}/{z}");
+                            Assert.AreEqual((double)(i) / j > (double)(k)/z ? 2 : (double)(i) / j < (double)(k) / z ? 1 : 0, res, $"¬ходные данные i = {i}/{j}, j = {k}/{z}");
                         }
                     }
                 }
