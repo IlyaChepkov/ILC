@@ -8,7 +8,7 @@ namespace ILC.Math
 {
     internal static class Helper
     {
-        public static void Swap<T>(ref T first, ref T second)
+        internal static void Swap<T>(ref T first, ref T second)
         {
             T bufer  = first;
             first = second;

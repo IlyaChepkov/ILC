@@ -53,7 +53,7 @@ namespace ILC.Math
                     }
                 }
                 if (Z.Compare(valueMonome.Item2, value[^1].Item2) == 2 &&
-                    !(valueMonome.Item1.IsZero()))
+                    !valueMonome.Item1.IsZero())
                 {
                     value.Add(valueMonome);
                 }
@@ -151,51 +151,141 @@ namespace ILC.Math
             return clawn;
         }
 
-        public Q Led() => throw new NotImplementedException();
+        public Q Led() => value[^1].Item1.Clone();
 
-        public Z Deg() => throw new NotImplementedException();
+        public Z Deg() => value[^1].Item2.Clone();
 
-        public P Fac() => throw new NotImplementedException();
 
-        public P GCF() => throw new NotImplementedException();
+        public static P GCF(P a, P b)
+        {
+            while (!a.IsZero() && !b.IsZero())
+            {
+                if (Compare(a, b) == 2)
+                    a %= b;
+                else
+                    b %= a;
+            }
+            return a + b;
+        }
 
-        public P DER() => throw new NotImplementedException();
+        public P DER()
+        {
+            P der = new P("0");
+            for (int i = 0; i < value.Count; i++)
+            {
+                if (!value[i].Item2.IsZero())
+                    der.value.Add((value[i].Item1 * value[i].Item2, value[i].Item2 - new Z("1")));
+            }
+            if (der.value.Count > 1)
+                der.value.RemoveAt(0);
+            return der;
+        }
 
-        public P NMR() => throw new NotImplementedException();
+        public P INT()
+        {
+            P der = new P("0");
+            for (int i = 0; i < value.Count; i++)
+            {
+                if (Z.Compare(value[i].Item2, new Z("-1")) != 0)
+                {
+                    value[i] = (value[i].Item1, value[i].Item2 + new Z("1"));
+                    der.value.Add((value[i].Item1 / value[i].Item2, value[i].Item2));
+                }
+            }
+            if (der.value.Count > 1)
+                der.value.RemoveAt(0);
+            return der;
+        }
 
         public static explicit operator Q(P param)
         {
-            throw new NotImplementedException();
+            if (!param.IsQ())
+                throw new ArgumentException();
+            return param.value[0].Item1.Clone();
         }
 
         public static implicit operator P(Q param)
         {
-            throw new NotImplementedException();
+            List<(Q, Z)> value = new List<(Q, Z)>() { (param, new Z("0")) };
+            return new P(value);
         }
+
 
         public static P operator +(P first, P second)
         {
-            throw new NotImplementedException();
+            if (Z.Compare(first.Deg(), second.Deg()) == 1)
+                Helper.Swap(ref first, ref second);
+            P clawn = first.Clone();
+            int i = 0;
+            int j = 0;
+            while (j < second.value.Count)
+            {
+                switch (Z.Compare(first.value[i].Item2, second.value[j].Item2))
+                {
+                    case 0:
+                        {
+                            clawn.value[i] = (clawn.value[i].Item1 + second.value[i].Item1,
+                                first.value[i].Item2);
+                            i++;
+                            j++;
+                        }
+                        break;
+                    case 2:
+                        {
+                            clawn.value.Insert(i, second.value[j]);
+                            j++;
+                        }
+                        break;
+                    case 1:
+                        {
+                            i++;
+                        }
+                        break;
+                }
+            }
+            return clawn;
         }
 
         public static P operator -(P first, P second)
         {
-            throw new NotImplementedException();
+            return first + second.ChangeSign();
         }
 
         public static P operator *(P first, P second)
         {
-            throw new NotImplementedException();
+            if (first.value.Count < second.value.Count)
+                Helper.Swap(ref first, ref second);
+            P result = new P("0");
+            for (int i = 0; i < second.value.Count; i++)
+            {
+                result += first.MulXk(second.value[i].Item2).MulQ(second.value[i].Item1);
+            }
+            return result;
         }
 
         public static P operator /(P first, P second)
         {
-            throw new NotImplementedException();
+            P result = new P("0");
+            while (Z.Compare(first.Deg(), second.Deg()) != 1)
+            {
+                result.value.Insert(1, (first.Led() / second.Led(),
+                    first.Deg() - second.Deg()));
+                first -= second.MulQ(result.value[1].Item1).MulXk(result.value[1].Item2);
+            }
+            if (first.value.Count > 1)
+                result.value.RemoveAt(0);
+            return result;
         }
 
         public static P operator %(P first, P second)
         {
-            throw new NotImplementedException();
+            first = first.Clone();
+            while (Z.Compare(first.Deg(), second.Deg()) != 1)
+            {
+                first -= second.MulQ(first.Led() / second.Led()).
+                    MulXk(first.Deg() - second.Deg());
+            }
+            return first;
         }
     }
 }
